@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trivia</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+  <h1>Trivia Form <button onclick="start()" class="start">start</button> <span class="timer"><span id="secs">00</span>s</span></h1>
+  <div class="questions col-flex">
+    <h3>Question <span id="qno">0</span></h3>
+    <p id="question">What is the national animal of Pakistan?</p>
+    <div class="options col-flex">
+    </div>
+    <button onclick="next()">Next</button>
+  </div>
+
+<script>
+  var interval = null;
+  var time = 120;
+  var count  = 0;
+  var question = document.getElementById("question");
+  var qno = document.getElementById("qno");
+  var options = document.querySelector(".options");
+  var answer = '';
+  var correct = 0;
+  
+  function timer()
+  {
+    interval = setInterval(() => {
+      time -= 1;
+      if(time < 0)
+      {
+        finish();
+        return;
+      }
+      document.getElementById("secs").innerHTML = time;
+    }, 1000)
+  }
+
+  function start()
+  {
+    document.querySelector(".start").style.display = "none";
+    document.querySelector(".questions").style.display = "flex";
+    timer();
+    
+    question.innerHTML = questions[count].question;
+    qno.innerHTML = count+1;
+    showOptions(questions[count]);
+  }
+
+  function showOptions(data)
+  {
+    options.innerHTML = '';
+    answer = data.correct_answer;
+    data.incorrect_answers.push(answer);
+    var choices = shuffle(data.incorrect_answers);
+    for(let choice of choices)
+    {
+      options.innerHTML += `<div><input id="${choice}" name="choice" type="radio" value="${choice}" /> <label for="${choice}">${choice}</label></div>`;
+    }
+  }
+
+  function next()
+  {
+    try{
+      if(answer == document.querySelector('input[name="choice"]:checked').value)
+        correct++;
+    }
+    catch {
+      alert("Please select answer");
+      return;
+    }
+    
+    count++;
+
+    if(questions.length == count)
+    {  
+      finish();
+      return;
+    }
+
+    question.innerHTML = questions[count].question;
+    qno.innerHTML = count+1;
+    showOptions(questions[count]);
+  }
+
+  function finish() {
+    clearInterval(interval);
+    let box = document.querySelector(".questions");
+    box.innerHTML = `
+      <h2 class="results">Results</h2>
+      <div class="correct"><span class="wc">Correct answers:</span> <span class="green">${correct}</span></div>
+      <div class="incorrect"><span class="wc">Incorrect answers:</span> <span class="red">${10 - correct}</span></div>
+    `;
+  }
+
+  var questions = [
+    {
+      "question": "How many times did Martina Navratilova win the Wimbledon Singles Championship?",
+      "correct_answer": "Nine",
+      "incorrect_answers": [
+        "Ten",
+        "Seven",
+        "Eight"
+      ]
+    },
+    {
+      "question": "Which of these teams isn&#039;t a member of the NHL&#039;s &quot;Original Six&quot; era?",
+      "correct_answer": "Philadelphia Flyers",
+      "incorrect_answers": [
+        "New York Rangers",
+        "Toronto Maple Leafs",
+        "Boston Bruins"
+      ]
+    },
+    {
+      "question": "Tennis was once known as Racquetball.",
+      "correct_answer": "False",
+      "incorrect_answers": [
+        "True"
+      ]
+    },
+    {
+      "question": "Where was the Games of the XXII Olympiad held?",
+      "correct_answer": "Moscow",
+      "incorrect_answers": [
+        "Barcelona",
+        "Tokyo",
+        "Los Angeles"
+      ]
+    },
+    {
+      "question": "Which Italian footballer told Neuer where he&#039;s putting his shot and dragging it wide, during the match Italy-Germany, UEFA EURO 2016?",
+      "correct_answer": "Pelle",
+      "incorrect_answers": [
+        "Insigne",
+        "Barzagli",
+        "Giaccherini"
+      ]
+    },
+    {
+      "question": "Which female player won the gold medal of table tennis singles in 2016 Olympics Games?",
+      "correct_answer": "DING Ning (China)",
+      "incorrect_answers": [
+        "LI Xiaoxia (China)",
+        "Ai FUKUHARA (Japan)",
+        "Song KIM (North Korea)"
+      ]
+    },
+    {
+      "question": "Which city did the former NHL team &quot;The Nordiques&quot; originiate from?",
+      "correct_answer": "Quebec City",
+      "incorrect_answers": [
+        "Houston",
+        "Montreal",
+        "New York"
+      ]
+    },
+    {
+      "question": "In Formula 1, the Virtual Safety Car was introduced following the fatal crash of which driver?",
+      "correct_answer": "Jules Bianchi",
+      "incorrect_answers": [
+        "Ayrton Senna",
+        "Ronald Ratzenberger",
+        "Gilles Villeneuve"
+      ]
+    },
+    {
+      "question": "Who won the &quot;Champions League&quot; in 1999?",
+      "correct_answer": "Manchester United",
+      "incorrect_answers": [
+        "Barcelona",
+        "Bayern Munich",
+        "Liverpool"
+      ]
+    },
+    {
+      "question": "Why was The Green Monster at Fenway Park was originally built?",
+      "correct_answer": "To prevent viewing games from outside the park.",
+      "incorrect_answers": [
+        "To make getting home runs harder.",
+        "To display advertisements.",
+        "To provide extra seating."
+      ]
+    }
+  ]
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
+</script>
+</body>
+</html>

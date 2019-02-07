@@ -1,0 +1,86 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: rgb(41, 41, 41);
+  }
+  h1 {
+    margin: 40px 0px;
+    font-size: 40px;
+    font-weight: normal;
+  }
+  .col-flex {
+    display: flex;
+    flex-direction: column;
+  }
+  .questions {
+    display: none;
+    padding: 40px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
+  .questions h3 {
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .questions p {
+    font-size: 20px;
+  }
+  .options > div {
+    margin: 5px 10px;
+  }
+  .options > div, label {
+    cursor: pointer;
+  }
+  .questions button, .start {
+    margin-left: auto;
+    border: 1px solid rgb(214, 52, 52);
+    color: rgb(214, 52, 52);
+    background-color: white;
+    font-size: 16px;
+    height: 25px;
+    width: 60px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .questions button:hover {
+    border: 1px solid rgb(214, 52, 52);
+    color: white;
+    background-color: rgb(214, 52, 52);
+  }
+  .start {
+    border: 1px solid rgb(52, 128, 214);
+    color: rgb(52, 128, 214);
+    background-color: white;
+  }
+  .start:hover {
+    border: 1px solid rgb(52, 128, 214);
+    color: white;
+    background-color: rgb(52, 128, 214);
+  }
+  button::-moz-focus-inner {
+    border: 0;
+  }
+  .timer {
+    float: right;
+    font-size: 30px;
+  }
+  .correct, .incorrect {
+    font-size: 18px;
+  }
+  .results {
+    font-size: 25px;
+    font-weight: normal;
+  }
+  .wc {
+    display: inline-block;
+    width: 147px;
+  }
+  .green {
+    color: rgb(51, 175, 51);
+    font-size: 35px;
+  }
+  .red {
+    color: rgb(202, 58, 58);
+    font-size: 35px;
+  }
